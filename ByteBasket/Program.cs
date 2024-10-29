@@ -19,7 +19,7 @@ class Program
         new Order(customer1, delivery1, new Dictionary<string, int>{{"Laptop", 1}}),
         new Order(customer1, delivery2, new Dictionary<string, int>{{"Laptop", 3}}),
         new Order(customer1, delivery3, new Dictionary<string, int>{{"Mus", 2}}),
-        new Order(customer1, delivery4, new Dictionary<string, int>{{"Tangentbord", 1}}),
+        new Order(customer1, delivery4, new Dictionary<string, int>{{"Tangentbord", 4}}),
         new Order(customer1, delivery5, new Dictionary<string, int>{{"Laptop", 5}})
         ];
 
@@ -29,8 +29,13 @@ class Program
             expressOrder.DisplayOrder();
         }
 
-        //IEnumerable<Order> 
+        decimal Price = orders.Sum(o => o.TotalPrice);
+        Console.WriteLine($"The total value of all orders is: {Price}");
+        
+        decimal HighestPrice = orders.Max(o => o.TotalPrice);
+        Console.WriteLine($"The most expensive order is: {HighestPrice}");
+        
 
 
-     }
+    }
 }
