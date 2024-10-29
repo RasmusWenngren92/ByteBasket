@@ -7,7 +7,7 @@ public class Order
     DateTime OrderDate = DateTime.Now;
     Delivery _delivery;
     
-    Dictionary<string, Amount> Products = new Dictionary<string, Amount>();
+    public Dictionary<string, Amount> Products = new Dictionary<string, Amount>();
     private Customer _customer;
     public Order(Customer customer, Dictionary<string, int> products, Delivery delivery)   
     {
@@ -32,5 +32,25 @@ public class Order
     {
         await _delivery.HandleDelivery();
         DisplayOrder();
+    }
+    public void AddItem(string itemName, int count)
+    {
+        decimal priceIncrease = Prices.priceList[itemName] * count;
+        if (Products.TryGetValue(itemName, out var item))
+        {
+            item.Quantity += count;
+            item.TotalPrice += priceIncrease;
+            Products[itemName] = item;
+        }
+
+        else
+        {
+            Products.Add(itemName, new Amount(count, priceIncrease));
+        }
+    }
+
+    public void RemoveItem(string itemName)
+    {
+        Products.Remove(itemName);
     }
 }
