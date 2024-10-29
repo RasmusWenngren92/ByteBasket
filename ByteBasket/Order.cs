@@ -2,23 +2,25 @@ namespace ByteBasket;
 
 public class Order
 {
-
+    public decimal TotalPrice;
     Guid OrderId = Guid.NewGuid();
     DateTime OrderDate = DateTime.Now;
-    Delivery _delivery;
+    public Delivery Delivery;
     
     public Dictionary<string, Amount> Products = new Dictionary<string, Amount>();
     private Customer _customer;
     public Order(Customer customer, Delivery delivery, Dictionary<string, int>? products = null)   
     {
-        _delivery = delivery;
+        Delivery = delivery;
         _customer = customer;
         if (products != null)
         {
             foreach (var product in products)
             {
-                Amount amount = new Amount(product.Value, Prices.priceList[product.Key] * product.Value);
+                decimal totalCost = Prices.priceList[product.Key] * product.Value;
+                Amount amount = new Amount(product.Value, totalCost);
                 Products.Add(product.Key, amount);
+                TotalPrice += totalCost;
             }
         }
         Console.WriteLine($"OrderId: {OrderId}");
@@ -33,7 +35,7 @@ public class Order
     } 
     public async Task ProcessDeliveryAsync()
     {
-        await _delivery.HandleDelivery();
+        await Delivery.HandleDelivery();
         DisplayOrder();
     }
     public void AddItem(string itemName, int count)
@@ -50,10 +52,15 @@ public class Order
         {
             Products.Add(itemName, new Amount(count, priceIncrease));
         }
+        TotalPrice += priceIncrease;
     }
 
     public void RemoveItem(string itemName)
     {
-        Products.Remove(itemName);
+        if (Products.TryGetValue(itemName, out var item))
+        {
+            TotalPrice -= item.TotalPrice;
+            Products.Remove(itemName);
+        }
     }
 }

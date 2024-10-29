@@ -16,12 +16,21 @@ class Program
         Delivery delivery5 = new StandardDelivery();
 
         List<Order> orders = [
-        new Order(customer1, delivery1, new Dictionary<string, int>{{"Laptop", 3}}),
+        new Order(customer1, delivery1, new Dictionary<string, int>{{"Laptop", 1}}),
         new Order(customer1, delivery2, new Dictionary<string, int>{{"Laptop", 3}}),
-        new Order(customer1, delivery3, new Dictionary<string, int>{{"Laptop", 3}}),
-        new Order(customer1, delivery4, new Dictionary<string, int>{{"Laptop", 3}}),
-        new Order(customer1, delivery5, new Dictionary<string, int>{{"Laptop", 3}})
+        new Order(customer1, delivery3, new Dictionary<string, int>{{"Mus", 2}}),
+        new Order(customer1, delivery4, new Dictionary<string, int>{{"Tangentbord", 1}}),
+        new Order(customer1, delivery5, new Dictionary<string, int>{{"Laptop", 5}})
         ];
+
+        IEnumerable<Order> expressOrders = orders.Where(o => o.Delivery.GetType() ==  typeof(ExpressDelivery));
+        foreach (Order expressOrder in expressOrders)
+        {
+            expressOrder.DisplayOrder();
+        }
+
+        //IEnumerable<Order> 
+
 
      }
 }
