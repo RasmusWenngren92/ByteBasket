@@ -46,5 +46,7 @@ class Program
         {
             Console.WriteLine(order.OrderDate);
         }
+
+        Task.WaitAll(orders.Select(o => o.ProcessDeliveryAsync()).ToArray());
     }
 }
