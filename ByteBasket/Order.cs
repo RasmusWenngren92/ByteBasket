@@ -1,12 +1,12 @@
 ﻿namespace ByteBasket;
 
-public class Orders
+public class Order
 {
     public string Name { get; set; }
     public Guid Id = Guid.NewGuid();
     private static readonly Dictionary<string, Dictionary<string, int>> Items = new();
     
-    public Orders(string name)
+    public Order(string name)
     {
         Name = name;
     }
