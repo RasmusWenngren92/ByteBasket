@@ -9,14 +9,17 @@ public class Order
     
     public Dictionary<string, Amount> Products = new Dictionary<string, Amount>();
     private Customer _customer;
-    public Order(Customer customer, Dictionary<string, int> products, Delivery delivery)   
+    public Order(Customer customer, Delivery delivery, Dictionary<string, int>? products = null)   
     {
         _delivery = delivery;
         _customer = customer;
-        foreach (var product in products)
+        if (products != null)
         {
-            Amount amount = new Amount(product.Value, Prices.priceList[product.Key] * product.Value);
-            Products.Add(product.Key, amount);
+            foreach (var product in products)
+            {
+                Amount amount = new Amount(product.Value, Prices.priceList[product.Key] * product.Value);
+                Products.Add(product.Key, amount);
+            }
         }
         Console.WriteLine($"OrderId: {OrderId}");
     }
