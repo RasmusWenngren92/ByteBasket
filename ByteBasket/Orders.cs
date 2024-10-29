@@ -2,7 +2,7 @@
 
 public static class Orders
 {
-    private static readonly Dictionary<string, List<Dictionary<string, int>>> Items = new();
+    private static readonly Dictionary<string, Dictionary<string, int>> Items = new();
 
     public static void DisplayItems()
     {
@@ -11,24 +11,26 @@ public static class Orders
         foreach (var item in Items)
         {
             Console.WriteLine(item.Key);
-            foreach (var t in item.Value)
+            foreach (var info in item.Value)
             {
-                foreach (var key in t.Keys) Console.Write($"{key}: ");
-                foreach (var value in t.Values) Console.WriteLine(value);
+                Console.Write($"{info.Key}: ");
+                Console.WriteLine($"{info.Value}");
             }
+            Console.WriteLine();
         }
     }
 
     public static void AddItem(string itemName, int itemPrice)
     {
-        if (Items.TryGetValue(itemName, out var item)) item[0]["Amount"] += 1;
-        
+        if (Items.TryGetValue(itemName, out var item)) item["Amount"] += 1;
+
         else
         {
-            Items.Add(itemName, [
-                new Dictionary<string, int> { { "Amount", 1 } },
-                new Dictionary<string, int> { { "Price", itemPrice } }
-            ]);
+            Items.Add(itemName, new Dictionary<string, int>
+            {
+                { "Amount", 1 },
+                { "Price", itemPrice }
+            });
         }
     }
 
