@@ -4,15 +4,15 @@ public class Order
 {
     public decimal TotalPrice;
     Guid OrderId = Guid.NewGuid();
-    DateTime OrderDate = DateTime.Now;
+    public DateTime OrderDate = DateTime.Now;
     public Delivery Delivery;
     
     public Dictionary<string, Amount> Products = new Dictionary<string, Amount>();
-    private Customer _customer;
+    public Customer Customer;
     public Order(Customer customer, Delivery delivery, Dictionary<string, int>? products = null)   
     {
         Delivery = delivery;
-        _customer = customer;
+        Customer = customer;
         if (products != null)
         {
             foreach (var product in products)

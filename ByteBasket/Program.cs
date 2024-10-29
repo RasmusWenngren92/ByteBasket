@@ -23,7 +23,7 @@ class Program
         new Order(customer1, delivery5, new Dictionary<string, int>{{"Laptop", 5}})
         ];
 
-        IEnumerable<Order> expressOrders = orders.Where(o => o.Delivery.GetType() ==  typeof(ExpressDelivery));
+        IEnumerable<Order> expressOrders = orders.Where(o => o.Delivery.GetType() == typeof(ExpressDelivery));
         foreach (Order expressOrder in expressOrders)
         {
             expressOrder.DisplayOrder();
@@ -31,11 +31,20 @@ class Program
 
         decimal Price = orders.Sum(o => o.TotalPrice);
         Console.WriteLine($"The total value of all orders is: {Price}");
-        
+
         decimal HighestPrice = orders.Max(o => o.TotalPrice);
         Console.WriteLine($"The most expensive order is: {HighestPrice}");
-        
 
 
+        IEnumerable<List<Order>> customersGroup = orders.GroupBy(o => o.Customer.FirstName).Select(group => group.ToList());
+        foreach (List<Order> customerOrders in customersGroup)
+        {
+            Console.WriteLine($"{customerOrders[0].Customer.FirstName} {customerOrders.Count}");
+        }
+        IEnumerable<Order> orderByDates = orders.OrderByDescending(o => o.OrderDate);
+        foreach (Order order in orderByDates)
+        {
+            Console.WriteLine(order.OrderDate);
+        }
     }
 }
