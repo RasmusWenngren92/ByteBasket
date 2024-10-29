@@ -1,6 +1,6 @@
 namespace ByteBasket;
 
-public class Amount
+public struct Amount
 {
     public int Quantity { get; set; }
     public decimal TotalPrice { get; set; }

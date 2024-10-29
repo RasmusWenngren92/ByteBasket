@@ -25,7 +25,5 @@ public class Order
         {
             Console.WriteLine($"{product.Key} {product.Value.Quantity} {product.Value.TotalPrice}");
         }
-    }
-    
-
+    } 
 }
