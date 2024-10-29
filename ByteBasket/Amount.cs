@@ -3,9 +3,9 @@ namespace ByteBasket;
 public class Amount
 {
     public int Quantity { get; set; }
-    public int TotalPrice { get; set; }
+    public decimal TotalPrice { get; set; }
 
-    public Amount(int quantity, int totalPrice)
+    public Amount(int quantity, decimal totalPrice)
     {
         Quantity = quantity;
         TotalPrice = totalPrice;

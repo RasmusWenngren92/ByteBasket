@@ -1,8 +1,8 @@
 namespace ByteBasket;
 
-public class Products
+public class Prices
 {
-    static Dictionary<string, decimal> products = new Dictionary<string, decimal>
+    public static Dictionary<string, decimal> priceList = new Dictionary<string, decimal>
     {
         {"Laptop", 8999.99m},
         {"Mus", 299.99m},
