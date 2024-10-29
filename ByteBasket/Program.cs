@@ -18,8 +18,8 @@ class Program
         List<Order> orders = [
         new Order(customer1, delivery1, new Dictionary<string, int>{{"Laptop", 1}}),
         new Order(customer1, delivery2, new Dictionary<string, int>{{"Laptop", 3}}),
-        new Order(customer1, delivery3, new Dictionary<string, int>{{"Mus", 2}}),
-        new Order(customer1, delivery4, new Dictionary<string, int>{{"Tangentbord", 1}}),
+        new Order(customer3, delivery3, new Dictionary<string, int>{{"Mus", 2}}),
+        new Order(customer4, delivery4, new Dictionary<string, int>{{"Tangentbord", 1}}),
         new Order(customer1, delivery5, new Dictionary<string, int>{{"Laptop", 5}})
         ];
 
@@ -29,8 +29,16 @@ class Program
             expressOrder.DisplayOrder();
         }
 
-        //IEnumerable<Order> 
-
-
+        IEnumerable<List<Order>> customersGroup = orders.GroupBy(o => o.Customer.FirstName).Select(group => group.ToList()); 
+        foreach(List<Order> customerOrders in customersGroup)
+        {
+            Console.WriteLine($"{customerOrders[0].Customer.FirstName} {customerOrders.Count}");
+        }
+        IEnumerable<Order> orderByDates = orders.OrderByDescending(o => o.OrderDate);
+        foreach (Order order in orderByDates)
+        { 
+            Console.WriteLine(order.OrderDate); 
+        }
+            
      }
 }
